@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ReUsa – Reto Cero Descartables</title>
+<meta name="description" content="ReUsa convierte usar tu envase propio en el campus UPC en un hábito: registras con un QR, mantienes tu racha, ves el residuo que evitas y compites con toda la UPC.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!-- ================= INGRESO (HU01–HU06) ================= -->
+<div class="shell" id="sh-onb">
+  <!-- P01 tipo de usuario -->
+  <section class="scr" id="s-p01" aria-label="Ingresar según tipo de usuario">
+    <div class="onb">
+      <div>
+        <span class="eyebrow">ODS 12 · UPC</span>
+        <h1 style="margin-top:10px">Cero descartables.<br><em>No pierdas tu racha.</em></h1>
+        <p class="lead">Usa tu tomatodo, taza, táper, cubiertos o bolsa en el campus y regístralo con un QR. Mira cuánto residuo evitas y compite con toda la UPC.</p>
+        <p style="font-weight:700;color:var(--oliva);margin-bottom:12px">¿Cómo vas a usar ReUsa?</p>
+        <div class="roles">
+          <button class="role" data-role="est"><span class="e" style="background:var(--melo)">👩‍🎓</span><span><b>Soy estudiante</b><span>Ingresa con tu correo UPC</span></span><span class="go">→</span></button>
+          <button class="role" data-role="cafe"><span class="e" style="background:var(--salvia)">🧑‍🍳</span><span><b>Soy de una cafetería</b><span>Ingresa con tu DNI y el código de tu sede</span></span><span class="go">→</span></button>
+          <button class="role" data-role="limp"><span class="e" style="background:var(--arena)">🧹</span><span><b>Soy personal de limpieza</b><span>Ingresa con tu DNI y el código de tu sede</span></span><span class="go">→</span></button>
+        </div>
+      </div>
+      <div class="onb-art"><div data-reu="hola" style="position:absolute;inset:0"></div></div>
+    </div>
+  </section>
+
+  <!-- P02 correo UPC + código -->
+  <section class="scr" id="s-p02" aria-label="Registro del estudiante">
+    <div class="onb">
+      <div>
+        <button class="back-top" data-p="p01">← Cambiar tipo de usuario</button>
+        <span class="eyebrow" style="display:block">Estudiante · Paso 1 de 2</span>
+        <h1 style="margin-top:10px;font-size:clamp(32px,4.2vw,48px)">Entra con tu correo UPC</h1>
+        <div class="form-card" style="margin-top:20px">
+          <label class="field2" for="mail" style="margin-top:0">Correo UPC</label>
+          <input class="input" id="mail" type="email" value="u202312345@upc.edu.pe" autocomplete="email">
+          <p class="err" id="mailErr"></p>
+          <p class="hint">Te enviaremos un código de 4 dígitos. Así solo participan alumnos UPC.</p>
+          <div id="codeWrap" hidden>
+            <label class="field2">Código de verificación <span class="muted small">(para el ejemplo: 4821)</span></label>
+            <div class="code" id="code"><input inputmode="numeric" maxlength="1" aria-label="Dígito 1"><input inputmode="numeric" maxlength="1" aria-label="Dígito 2"><input inputmode="numeric" maxlength="1" aria-label="Dígito 3"><input inputmode="numeric" maxlength="1" aria-label="Dígito 4"></div>
+            <p class="err" id="codeMsg"></p>
+          </div>
+          <button class="btn" id="sendCode" style="margin-top:16px">Enviar código</button>
+        </div>
+      </div>
+      <div class="onb-art"><div data-reu="hola" style="position:absolute;inset:0"></div></div>
+    </div>
+  </section>
+
+  <!-- P03 sede principal -->
+  <section class="scr" id="s-p03" aria-label="Elegir sede principal">
+    <div class="onb">
+      <div>
+        <span class="eyebrow">Estudiante · Paso 2 de 2</span>
+        <h1 style="margin-top:10px;font-size:clamp(32px,4.2vw,48px)">¿Cuál es tu sede principal?</h1>
+        <p class="lead" style="margin-bottom:16px">Aparece en tu perfil. Tus registros suman a la sede donde está el punto, aunque lleves clases en otra.</p>
+        <div class="sedes" id="sedes">
+          <button class="sede" aria-pressed="false">Monterrico<span>Surco</span></button>
+          <button class="sede" aria-pressed="true">San Isidro<span>San Isidro</span></button>
+          <button class="sede" aria-pressed="false">Villa<span>Chorrillos</span></button>
+          <button class="sede" aria-pressed="false">San Miguel<span>San Miguel</span></button>
+        </div>
+        <button class="btn" data-p="p05">¡Listo, vamos!</button>
+      </div>
+      <div class="onb-art"><div data-reu="feliz" style="position:absolute;inset:0"></div></div>
+    </div>
+  </section>
+
+  <!-- P04 ingreso del personal -->
+  <section class="scr" id="s-p04" aria-label="Ingreso del personal">
+    <div class="onb">
+      <div>
+        <button class="back-top" data-p="p01">← Cambiar tipo de usuario</button>
+        <span class="eyebrow" style="display:block" id="stEye">Cafetería · Primer ingreso</span>
+        <h1 style="margin-top:10px;font-size:clamp(32px,4.2vw,48px)" id="stTitle">Ingresa con tu DNI</h1>
+        <div class="form-card" style="margin-top:20px">
+          <label class="field2" for="dni" style="margin-top:0">DNI</label>
+          <input class="input big-input" id="dni" inputmode="numeric" maxlength="8" value="45781236">
+          <label class="field2" for="sc">Código de sede <span class="muted small">(te lo da tu supervisor · ejemplo: 5310)</span></label>
+          <input class="input big-input" id="sc" inputmode="numeric" maxlength="4" value="5310">
+          <label class="field2" for="nm">Tu nombre</label>
+          <input class="input" id="nm" value="Diego Salazar">
+          <label class="field2" for="zn" id="znLbl">Tu local</label>
+          <input class="input" id="zn" value="Cafetería Central">
+          <label class="check"><input type="checkbox" id="ok" checked> Acepto que ReUsa use mi DNI y nombre solo para identificarme en la app (Ley N.° 29733).</label>
+          <p class="err" id="stErr"></p>
+          <button class="btn block" id="stGo">Ingresar</button>
+          <p class="hint">La próxima vez entrarás directo: la sesión queda guardada en tu celular.</p>
+        </div>
+      </div>
+      <div class="onb-art"><div data-reu="hola" style="position:absolute;inset:0"></div></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= ESTUDIANTE ================= -->
+<div class="shell" id="sh-est">
+  <header class="top">
+    <div class="wrap">
+      <div class="brand"><span class="brand-mark"><svg width="20" height="24" viewBox="0 0 20 24"><path d="M2 5h16l-2 17H4z" fill="#F4C9A6"/><rect x="0" y="2" width="20" height="4" rx="2" fill="#fff"/></svg></span>ReUsa</div>
+      <nav class="nav" aria-label="Principal">
+        <button data-p="p05" aria-current="page">Inicio</button>
+        <button data-p="p13">Ranking</button>
+      </nav>
+      <div class="right">
+        <span class="pill fire" title="Racha">🔥 <span data-streak>12</span></span>
+        <span class="pill" title="Puntos esta semana">⭐ <span data-pts>86</span><span class="lbl">&nbsp;pts</span></span>
+        <button class="av" data-p="p15" title="Mi perfil" style="background:var(--melo);font-size:20px" data-avatar>🦊</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- INICIO: feed primero -->
+    <section class="view" id="v-home" aria-label="Inicio">
+      <div class="wrap">
+        <div class="layout">
+          <div class="feed">
+            <div class="ticker" aria-label="Último minuto">
+              <span class="live"><i></i>Último minuto</span>
+              <div class="tk-track"><div class="tk-move" id="tk"></div></div>
+            </div>
+
+            <article class="feature" id="feature">
+              <div class="ft-body">
+                <span class="eyebrow" style="color:var(--terra-t)">⚡ ¿Sabías que…?<span class="hide-m"> · <span id="ftIdx">1/5</span></span></span>
+                <div class="big" id="ftBig">886</div>
+                <h2 id="ftTxt">toneladas de residuos plásticos generan cada día Lima y Callao.</h2>
+                <p class="ft-src" id="ftSrc">Fuente: MINAM</p>
+                <div class="react">
+                  <button class="rbtn" aria-pressed="false" data-react="d">👍 Me interesó</button>
+                  <button class="rbtn" aria-pressed="false" data-react="d">👎 No mucho</button>
+                  <span class="plus1" data-plus="d">+1 punto ⭐</span>
+                  <button class="link small" id="ftNext" style="margin-left:auto">Siguiente dato →</button>
+                </div>
+              </div>
+              <button class="reu-host" id="reuHost" aria-label="Toca a Reu para ver otro dato">
+                <span class="reu-bubble" id="reuBubble">¡Hola, Camila! Hoy te traigo datos curiosos 👀</span>
+                <span class="reu-peek" data-reu="hola"></span>
+              </button>
+            </article>
+
+            <div class="sec-h" style="margin:14px 0 0"><h2>Descubre</h2><span class="muted small">Lo publica el equipo ReUsa</span></div>
+            <div id="feed" style="display:grid;gap:18px"></div>
+          </div>
+
+          <aside class="side">
+            <div class="ring-card">
+              <div class="rc-top">
+                <div class="ring" id="ringHome"></div>
+                <div>
+                  <span class="eyebrow" style="display:block;margin-bottom:8px">Reto Cero Descartables</span>
+                  <span class="today" data-today>⏳ Hoy pendiente</span>
+                  <div class="mini-week" data-week></div>
+                </div>
+              </div>
+              <p class="small rc-meta" data-meta>Te faltan 9 días para la insignia de 21 días</p>
+              <button class="reto-btn" data-p="p07"><span class="rb-ic">♻️</span><span><b data-rb-t>Continuar mi reto</b><small data-rb-s>Día 13 · aún no registras hoy</small></span><span class="rb-arrow">→</span></button>
+              <p class="small rc-res">♻️ <b data-residuo>350 g</b> de residuo evitado este mes</p>
+              <p class="small rc-res" style="margin-top:4px">🛡️ Comodín de la semana disponible</p>
+            </div>
+            <div class="card hide-m">
+              <span class="eyebrow">♻️ Residuo que evitaste</span>
+              <div class="stat-n" style="margin-top:8px" data-residuo>350 g</div>
+              <p class="small muted" data-equiv>≈ 29 botellas de 500 ml · este mes</p>
+              <div class="kbars" data-kbars></div>
+              <p class="small muted" style="margin-top:8px">Estimado con pesos referenciales por envase.</p>
+            </div>
+            <div class="card hide-m">
+              <span class="eyebrow">🏫 Cómo va San Isidro</span>
+              <div class="stat-n" style="margin-top:8px;font-size:40px">612</div>
+              <p class="small muted">descartables evitados esta semana · <b style="color:#2F5A12">+14 %</b></p>
+              <p class="small" style="margin-top:8px">🗑️ Tachos: <span class="trend g">🟢 menos botellas</span></p>
+              <p class="small muted" style="margin-top:4px">Según el reporte del personal de limpieza</p>
+              <button class="link small" data-p="p14" style="margin-top:8px">Ver todas las sedes →</button>
+            </div>
+            <div class="card t-salvia hide-m">
+              <span class="eyebrow">🏆 Ranking semanal</span>
+              <div class="side-rank" style="margin-top:6px"><span class="stat-n" data-pos>#7</span><span class="small" style="color:var(--tinta-2)" data-gap>Te faltan 14 pts para pasar a Diego M.</span></div>
+              <button class="link small" data-p="p13" style="margin-top:8px">Ver ranking →</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- RETO -->
+    <section class="view" id="v-reto" aria-label="Mi reto">
+      <div class="wrap" style="max-width:760px">
+        <div id="r1">
+          <button class="back" data-p="p05">← Volver</button>
+          <div class="reto-head">
+            <div class="ring" id="ringReto"></div>
+            <div>
+              <span class="eyebrow">Reto Cero Descartables</span>
+              <h2 style="margin-top:6px" data-reto-title>Usa tu envase y regístralo para mantener tu racha</h2>
+              <p class="small" style="margin-top:6px" data-limit>Hoy: 0 de 5 registros · 1 por punto cada 30 min</p>
+            </div>
+          </div>
+          <h3 style="font-size:24px;margin-bottom:12px">¿Cómo quieres registrarlo?</h3>
+          <div class="methods">
+            <button class="method main" data-m="qr"><span class="e">📷</span><b>Escanear QR</b><span>Apunta al QR del bebedero o de la caja</span></button>
+            <button class="method" data-m="code"><span class="e">🔢</span><b>Escribir código</b><span>Los 4 números que están debajo del QR</span></button>
+          </div>
+          <div class="kinds-info"><span>💧 Tomatodo en el bebedero</span><span>☕ Taza o tomatodo en la cafetería</span><span>🍱 Táper para llevar</span><span>🍴 Tus cubiertos</span><span>🛍️ Tu bolsa</span></div>
+        </div>
+
+        <div id="r2" hidden class="scan-wrap">
+          <button class="back" data-back>← Cambiar método</button>
+          <h2 style="font-size:clamp(28px,4vw,38px)">Escanea el QR del punto</h2>
+          <div class="cam" aria-hidden="true">
+            <svg class="qrghost" viewBox="0 0 21 21" id="ghost"></svg>
+            <div class="frame"><i></i><i></i><i></i><i></i></div>
+            <div class="line"></div>
+            <div class="hint">Apunta la cámara al código…</div>
+          </div>
+          <p class="small muted" style="margin-bottom:10px;text-align:left"><b style="color:var(--oliva)">Para el ejemplo:</b> elige el punto que "escaneas".</p>
+          <div class="points" id="points"></div>
+        </div>
+
+        <div id="r3" hidden class="scan-wrap">
+          <button class="back" data-back>← Cambiar método</button>
+          <h2 style="font-size:clamp(28px,4vw,38px)">Escribe el código del punto</h2>
+          <p class="muted" style="margin:8px 0 18px">Está debajo del QR. <span class="small">(Ejemplo: bebedero 3107 · cafetería 7790)</span></p>
+          <div class="code" id="pcode" style="justify-content:center"><input inputmode="numeric" maxlength="1" aria-label="Dígito 1"><input inputmode="numeric" maxlength="1" aria-label="Dígito 2"><input inputmode="numeric" maxlength="1" aria-label="Dígito 3"><input inputmode="numeric" maxlength="1" aria-label="Dígito 4"></div>
+          <p class="small" id="pcodeMsg" style="min-height:24px;margin-top:8px"></p>
+        </div>
+
+        <div id="r4" hidden class="scan-wrap">
+          <span class="eyebrow" id="s2place">Cafetería Central</span>
+          <h2 style="font-size:clamp(28px,4vw,38px);margin-top:8px">¿Qué trajiste hoy?</h2>
+          <p class="muted" style="margin-top:6px">Marca todo lo que usaste. Cada cosa suma a tu residuo evitado.</p>
+          <div class="multi" id="multi">
+            <button class="mopt" aria-pressed="false" data-kind="vaso"><span class="e">☕</span>Taza o tomatodo<span>evitas vaso, tapa y sorbete</span></button>
+            <button class="mopt" aria-pressed="false" data-kind="taper"><span class="e">🍱</span>Táper<span>evitas el envase de tecnopor</span></button>
+            <button class="mopt" aria-pressed="false" data-kind="cubiertos"><span class="e">🍴</span>Mis cubiertos<span>evitas cubiertos descartables</span></button>
+            <button class="mopt" aria-pressed="false" data-kind="bolsa"><span class="e">🛍️</span>Mi bolsa<span>evitas la bolsa plástica</span></button>
+          </div>
+          <button class="btn" id="multiGo" disabled style="opacity:.5">Continuar</button>
+        </div>
+
+        <div id="r5" hidden class="scan-wrap">
+          <span class="eyebrow">Punto verificado ✓</span>
+          <h2 style="font-size:clamp(28px,4vw,38px);margin-top:8px">¿Agregas una foto?</h2>
+          <p class="muted" style="margin:8px 0 20px">Es opcional. Con foto ganas <b style="color:var(--terra-t)">+2 puntos extra</b>.</p>
+          <div class="photo-prev" id="photoPrev" hidden>📸</div>
+          <div class="row" style="justify-content:center;margin-top:20px">
+            <button class="btn" id="takePhoto">📷 Tomar foto (+2)</button>
+            <button class="btn sec" id="noPhoto">Ahora no</button>
+          </div>
+        </div>
+
+        <div id="r6" hidden class="scan-wrap" style="position:relative">
+          <div class="confetti" id="confetti"></div>
+          <div class="ok-box"><div data-reu="feliz" style="position:absolute;inset:0"></div></div>
+          <div class="big-plus" id="okPts">+5</div>
+          <h2 style="font-size:clamp(28px,3.6vw,38px);margin-top:10px" id="okTitle">¡Racha de 13 días! 🔥</h2>
+          <p class="muted" style="margin:8px 0 6px" id="okSub">1 botella de plástico evitada</p><p class="okg" id="okG">♻️ +12 g de residuo evitado</p>
+          <div class="row" style="justify-content:center"><button class="btn" data-p="p05">Volver al inicio</button><button class="btn sec" data-p="p15">Ver mi perfil</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RANKING -->
+    <section class="view" id="v-rank" aria-label="Ranking">
+      <div class="wrap" style="max-width:900px">
+        <h2 style="font-size:clamp(32px,4vw,44px)">Ranking UPC</h2>
+        <div class="tabs" role="tablist" id="rtabs">
+          <button role="tab" aria-selected="true" data-t="sem">⭐ Semanal</button>
+          <button role="tab" aria-selected="false" data-t="racha">🔥 Racha</button>
+          <button role="tab" aria-selected="false" data-t="sedes">🏫 Sedes</button>
+        </div>
+        <div id="rankBody"></div>
+      </div>
+    </section>
+
+    <!-- PERFIL -->
+    <section class="view" id="v-prof" aria-label="Mi perfil">
+      <div class="wrap" style="max-width:860px">
+        <div class="p-cover"></div>
+        <div class="p-card">
+          <div class="p-top">
+            <div class="p-av">
+              <svg class="r" viewBox="0 0 132 132"><circle cx="66" cy="66" r="62" fill="none" stroke="#EEF1E4" stroke-width="7"/><circle id="pRing" cx="66" cy="66" r="62" fill="none" stroke="#B54A26" stroke-width="7" stroke-linecap="round" stroke-dasharray="389.6" stroke-dashoffset="389.6" style="transition:stroke-dashoffset 1.2s var(--ease)"/></svg>
+              <div class="face" data-avatar>🦊</div>
+              <button class="edit" id="editAv" aria-label="Cambiar avatar">✏️</button>
+              <span class="sk">🔥 <span data-streak>12</span> días</span>
+            </div>
+            <div class="p-name"><h2>Camila Torres</h2><p>@camila.reusa · Sede principal: <span data-sede>San Isidro</span></p></div>
+          </div>
+          <div class="avatars" id="avatars" hidden></div>
+          <div class="p-stats">
+            <div><b data-streak>12</b><span>🔥 racha</span></div>
+            <div><b data-pts>86</b><span>⭐ pts semana</span></div>
+            <div><b data-residuo>350 g</b><span>♻️ residuo evitado</span></div>
+            <div><b data-pos>#7</b><span>🏆 ranking</span></div>
+          </div>
+        </div>
+
+        <div class="rule"><span>📅</span><span><b>Tu racha cuenta solo días hábiles.</b> Fines de semana y feriados no la cortan, y en vacaciones se congela sola. Tienes <b>1 comodín por semana</b> si un día no puedes registrar 🛡️.</span></div>
+        <div class="p-actions"><button class="btn sec" id="editAv2">✏️ Cambiar avatar</button><button class="btn sec" data-p="p01">Cerrar sesión</button></div>
+        <div style="height:18px"></div>
+        <div class="ptabs" role="tablist" id="ptabs">
+          <button role="tab" aria-selected="true" data-p2="ins">Insignias</button>
+          <button role="tab" aria-selected="false" data-p2="imp">Mi impacto</button>
+          <button role="tab" aria-selected="false" data-p2="hue">Mi huella</button>
+        </div>
+        <div class="pane on" data-pane="ins"><div class="badges" id="badges"></div></div>
+        <div class="pane" data-pane="imp">
+          <div class="card">
+            <span class="eyebrow">♻️ Residuo evitado este mes</span>
+            <div class="stat-n" style="margin:8px 0 2px;font-size:54px" data-residuo>350 g</div>
+            <p class="muted" data-equiv>≈ 29 botellas de 500 ml</p>
+            <div class="kbars big" data-kbars></div>
+            <p class="small muted" style="margin-top:12px">Estimado: cada registro multiplica la cantidad de envases evitados por un peso referencial (botella PET 500 ml ≈ 12 g, vaso + tapa + sorbete ≈ 12 g, táper de tecnopor ≈ 8 g, cubiertos ≈ 6 g, bolsa ≈ 6 g).</p>
+          </div>
+        </div>
+        <div class="pane" data-pane="hue">
+          <p class="muted" style="margin-bottom:14px">Opcional · 30 s. ¿Qué compraste hoy? Marca y te decimos cuánto plástico generas en el ciclo.</p>
+          <div class="items" id="items"></div>
+          <button class="btn" id="calc" style="margin-bottom:20px">Calcular</button>
+          <div class="result" id="result"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+
+  <nav class="bnav" aria-label="Principal móvil">
+    <button data-p="p05" aria-current="page"><span class="e">🏠</span>Inicio</button>
+    <button data-p="p13"><span class="e">🏆</span>Ranking</button>
+    <button data-p="p15"><span class="e" data-avatar>🦊</span>Perfil</button>
+  </nav>
+</div>
+
+<!-- ================= CAFETERÍA (HU41–HU45) ================= -->
+<div class="shell" id="sh-cafe">
+  <header class="top"><div class="wrap"><div class="brand"><span class="brand-mark">☕</span>ReUsa <span class="muted small" style="font-family:var(--fb);font-weight:600">· Cafetería</span></div><div class="right"><button class="logout" data-p="p01">Cerrar sesión</button></div></div></header>
+  <section class="scr" id="s-p18" aria-label="Panel de la cafetería"><main><div class="wrap">
+    <div class="role-head"><div class="av" style="width:58px;height:58px;background:var(--melo)">DS</div><div><h2 style="font-size:32px">Hola, Diego</h2><p class="muted">Cafetería Central · San Isidro</p></div></div>
+    <div class="bento">
+      <div class="card t-oliva c7">
+        <span class="eyebrow">Esta semana</span>
+        <div class="stat-n" style="color:var(--melo);font-size:72px;margin-top:10px">85</div>
+        <p style="color:var(--salvia)">clientes vinieron con su envase propio</p>
+        <div class="split"><div><b>60</b><span>☕ taza o tomatodo</span></div><div><b>25</b><span>🍱 táper</span></div></div>
+        <p class="small" style="color:var(--salvia);margin-top:14px">📈 <b style="color:var(--melo)">+18 %</b> que la semana pasada (72) · 25 envases de tecnopor que no tuviste que entregar</p>
+        <div class="chart" style="height:70px" aria-label="Últimas 5 semanas"><div style="color:var(--salvia)"><i style="height:40%;background:var(--durazno)"></i>S2</div><div style="color:var(--salvia)"><i style="height:52%;background:var(--durazno)"></i>S3</div><div style="color:var(--salvia)"><i style="height:61%;background:var(--durazno)"></i>S4</div><div style="color:var(--salvia)"><i style="height:72%;background:var(--durazno)"></i>S5</div><div style="color:var(--salvia)"><i style="height:85%;background:var(--melo)"></i>S6</div></div>
+      </div>
+      <div class="card c5" style="text-align:center">
+        <span class="eyebrow">Tu QR</span>
+        <div class="qr"><svg viewBox="0 0 25 25" id="qrCafe" width="100%" height="100%"></svg></div>
+        <p style="font:700 22px var(--fd);color:var(--oliva);letter-spacing:.2em;margin-bottom:10px">7790</p>
+        <span class="amigo">✓ Local amigo · acepta tu envase</span>
+        <button class="btn sec block" style="margin-top:16px" id="dlQr">⬇️ Descargar e imprimir QR</button>
+        <p class="small muted" style="margin-top:10px">El cliente lo escanea solo. Tú no haces nada.</p>
+      </div>
+      <div class="card t-salvia c12">
+        <span class="eyebrow">Así te ven los estudiantes</span>
+        <div class="pt" style="margin-top:10px;max-width:520px"><span class="ic" style="background:var(--melo)">☕</span><span><b>Cafetería Central</b><span>San Isidro · ✓ Local amigo · acepta taza, táper, cubiertos y bolsa</span></span></div>
+      </div>
+    </div>
+  </div></main></section>
+</div>
+
+<!-- ================= LIMPIEZA (HU29, HU46–HU48) ================= -->
+<div class="shell" id="sh-limp">
+  <header class="top"><div class="wrap"><div class="brand"><span class="brand-mark">🧹</span>ReUsa <span class="muted small" style="font-family:var(--fb);font-weight:600">· Limpieza</span></div><div class="right"><button class="logout" data-p="p01">Cerrar sesión</button></div></div></header>
+  <section class="scr" id="s-p19" aria-label="Reporte semanal"><main><div class="wrap" style="max-width:720px">
+    <div class="role-head"><div class="av" style="width:58px;height:58px;background:var(--salvia)">JR</div><div><h2 style="font-size:32px">Hola, Jorge</h2><p class="muted">Zona: Torres C y D · San Isidro</p></div></div>
+    <div class="reu-banner"><div class="pi" data-reu="hola"></div><div><b>Hoy es viernes 🗓️</b><p class="small" style="color:var(--tinta-2)">¿Cómo estuvo el tacho de plásticos de tu zona esta semana? Solo toma 1 minuto.</p></div></div>
+    <div class="card" id="limpForm">
+      <span class="eyebrow">Reporte de la semana 6</span>
+      <h3 style="font-size:26px;margin:8px 0 4px">En el tacho de plásticos esta semana vimos…</h3>
+      <div class="big-opts" id="bigOpts">
+        <button class="bo g" aria-pressed="false" data-v="Menos"><span class="e">🟢</span>Menos botellas</button>
+        <button class="bo y" aria-pressed="false" data-v="Igual"><span class="e">🟡</span>Igual</button>
+        <button class="bo r" aria-pressed="false" data-v="Más"><span class="e">🔴</span>Más botellas</button>
+      </div>
+      <label class="field" for="testi" style="margin-top:0">Cuéntanos algo <span class="muted small">(opcional)</span></label>
+      <textarea class="input" id="testi" placeholder="Ej.: Se ven menos botellas cerca de las torres"></textarea>
+      <button class="photo-btn" id="limpPhoto">📷 Agregar foto (opcional)</button>
+      <button class="btn block" id="sendRep" disabled style="opacity:.5">Enviar reporte</button>
+    </div>
+  </div></main></section>
+  <section class="scr" id="s-p20" aria-label="Reporte enviado e historial"><main><div class="wrap" style="max-width:720px">
+    <div class="role-head"><div class="av" style="width:58px;height:58px;background:var(--salvia)">JR</div><div><h2 style="font-size:32px">Hola, Jorge</h2><p class="muted">Zona: Torres C y D · San Isidro</p></div></div>
+    <div class="card t-salvia" style="text-align:center">
+      <div style="height:190px;position:relative;max-width:210px;margin:0 auto"><div data-reu="feliz" style="position:absolute;inset:0"></div></div>
+      <h3 style="font-size:28px;margin:6px 0 8px">¡Gracias, Jorge!</h3>
+      <p style="color:var(--tinta-2)">Tu reporte llegó al equipo ReUsa. Se publicará el sábado en el blog y en "Cómo va cada sede".</p>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <span class="eyebrow">Mis reportes</span>
+      <div class="hist" id="hist"><div><span>Semana 6 · <b data-last>🟢 Menos</b></span><b style="color:var(--terra-t)">En revisión</b></div><div><span>Semana 5 · 🟢 Menos</span><b style="color:var(--musgo)">Publicado ✓ · 430 lecturas</b></div><div><span>Semana 4 · 🟡 Igual</span><b style="color:var(--musgo)">Publicado ✓ · 310 lecturas</b></div></div>
+      <button class="btn sec" style="margin-top:16px" data-p="p19">Ver el reporte de esta semana</button>
+    </div>
+  </div></main></section>
+</div>
+
+<!-- Sheet artículo -->
+<div class="scrim" id="scrim"></div>
+<article class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shTitle">
+  <div class="grab"></div>
+  <span class="post-tag" id="shTag"></span>
+  <h2 id="shTitle"></h2>
+  <div id="shBody"></div>
+  <div class="react" style="margin-top:18px">
+    <button class="rbtn" aria-pressed="false" data-sr="si">👍 Me interesó</button>
+    <button class="rbtn" aria-pressed="false" data-sr="no">👎 No mucho</button>
+    <button class="link" id="shClose" style="margin-left:auto">Cerrar</button>
+  </div>
+</article>
+
+<div class="push" id="push" role="status"><div class="pi" data-reu="hola"></div><div><b>Reu · ReUsa</b> <small>ahora</small><p id="pushTxt">¡Aún no recargas hoy! Tu racha de 12 días te espera 🔥</p></div></div>
+<div class="toast" id="toast" role="status"></div>
+<div class="shutter" id="shutter"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
